@@ -166,6 +166,7 @@ export async function authenticate(email: string, password: string) {
     id: user.id,
     email: user.email,
     role: user.role as UserRole,
+    password: "",
   };
 }
 

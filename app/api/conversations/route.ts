@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(conversation);
     }
 
-    const where = session.user.role === 'USER' ? ({ status: { in: Object.values(ConversationStatus).filter(s => s !== ('CLOSED')), userId: session.user.id }})
+    const where = session.user.role === 'USER' ? ({ status: { in: Object.values(ConversationStatus).filter(s => s !== ('CLOSED')) }, userId: session.user.id})
       : { status: { in: Object.values(ConversationStatus).filter(s => s !== ('CLOSED')), },
         OR: [
           { userId: session.user.id },

@@ -16,7 +16,7 @@ interface Conversation {
   updatedAt: string;
 }
 
-export default function Header({ title, description }: HeaderProps) {
+export default function EmbedHeader({ title, description }: HeaderProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,7 +34,6 @@ export default function Header({ title, description }: HeaderProps) {
       try {
         const res = await fetch('/api/conversations');
         const data = await res.json();
-
         // đảm bảo luôn là array
         if (Array.isArray(data)) {
           setConversations(data);
@@ -59,9 +58,9 @@ export default function Header({ title, description }: HeaderProps) {
 
   const handleChange = (value: string) => {
     if (!value) {
-      router.push('/chat');
+      router.push('/embed_chat');
     } else {
-      router.push(`/chat?id=${value}`);
+      router.push(`/embed_chat?id=${value}`);
     }
   };
 
