@@ -57,10 +57,10 @@ export async function middleware(request: NextRequest) {
   if (customToken) {
     try {
       // user = JSON.parse(customToken);
-      // const { payload } = await jwtVerify(customToken, secret);
+      // const { payload } = await jwtVerify(JSON.parse(customToken), secret);
       // user = payload;
     } catch (err) {
-      console.log('Custom token không hợp lệ');
+      console.log(err);
     }
   }
 
@@ -102,5 +102,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/login', '/chat/:path*', '/admin/:path*', '/staff/:path*', '/embed_chat'],
+  matcher: ['/login', '/chat/:path*', '/admin/:path*', '/staff/:path*', '/embed_chat/:path*'],
 };

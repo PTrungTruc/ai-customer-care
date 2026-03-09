@@ -87,6 +87,7 @@ import { UserRole } from '@/types';
 import crypto from 'crypto';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { jwtVerify, SignJWT } from 'jose';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -180,6 +181,25 @@ export async function createToken(user: {
   role: UserRole;
 }) {
   const token = crypto.randomBytes(32).toString('hex');
+
+  return token;
+}
+
+/**
+ * Tạo token đăng nhập (DÙNG JWT)
+ */
+export async function createTokenJWT(user: {
+  id: string;
+  email: string;
+  role: UserRole;
+  password: string;
+}) {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const token = await new SignJWT(user)
+    .setProtectedHeader({ alg: "HS256" })   // 🔴 bắt buộc
+    .setIssuedAt()
+    .setExpirationTime("1d")
+    .sign(secret);
 
   return token;
 }

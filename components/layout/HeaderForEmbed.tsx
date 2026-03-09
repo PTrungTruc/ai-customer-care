@@ -64,6 +64,8 @@ export default function EmbedHeader({ title, description }: HeaderProps) {
     }
   };
 
+  const shorten = (text = "", max = 40) => text.length > max ? text.slice(0, max) + "..." : text;
+
   return (
     <div className="border-b bg-card">
       <div className="flex items-center justify-between px-6 py-4">
@@ -81,13 +83,13 @@ export default function EmbedHeader({ title, description }: HeaderProps) {
             <select
               value={selectedId}
               onChange={(e) => handleChange(e.target.value)}
-              className="border rounded-md px-3 py-1 text-sm"
+              className="border rounded-md px-3 py-1 text-sm max-w-[260px] truncate"
             >
               <option value="">Hộp thoại mới</option>
               {conversations.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.title || 'Chưa có title'} —{' '}
-                  {new Date(c.updatedAt).toLocaleString('vi-VN')}
+                <option key={c.id} value={c.id} title={`${c.title || "Chưa có title"} — ${new Date(c.updatedAt).toLocaleString("vi-VN")}`}>
+                  {shorten((c.title || "Chưa có title") + " — " + new Date(c.updatedAt).toLocaleString("vi-VN"))}
+                   {/* —{" "} {new Date(c.updatedAt).toLocaleString("vi-VN")} */}
                 </option>
               ))}
             </select>

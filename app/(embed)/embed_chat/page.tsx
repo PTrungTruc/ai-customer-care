@@ -98,7 +98,7 @@ export default function EmbedChatPage() {
       <div className="flex flex-col h-screen w-screen overflow-hidden bg-background px-5">
         <EmbedHeader
           title="Chat"
-          description="Trò chuyện với AI hỗ trợ khách hàng"
+          description="Trò chuyện với AI"
         />
 
         <div className="flex-1 overflow-hidden p-6">

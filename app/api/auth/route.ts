@@ -74,7 +74,7 @@
 // }
 
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticate, createToken } from '@/lib/auth';
+import { authenticate, createToken, createTokenJWT } from '@/lib/auth';
 import { cookies } from 'next/headers';
 import { signOut, signIn, useSession } from 'next-auth/react';
 
@@ -119,11 +119,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = await createToken(user);
+    // const token = await createToken(user);
     user.password = password;
+    const token = await createTokenJWT(user);
 
     const cookieStore = cookies();
-    cookieStore.set('auth-token', JSON.stringify(user), {
+    cookieStore.set('auth-token', JSON.stringify(token), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
